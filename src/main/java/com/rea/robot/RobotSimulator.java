@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 
 public class RobotSimulator {
     public void readInput(InputStream in) {
-        String line;
         Scanner scan = new Scanner(in);
-        while ((line = scan.nextLine()) != null) {
+        while (scan.hasNext()) {
+            String line = scan.nextLine();
             RobotCommand command = validateCommand(line);
         }
     }

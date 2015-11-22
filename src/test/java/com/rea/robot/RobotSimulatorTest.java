@@ -15,9 +15,9 @@ public class RobotSimulatorTest {
 
     @Test
     public void testReadInput() {
-        //String input = "PLACE 1,2,EAST\n";
-        //ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
-        //robotSimulator.readInput(in);
+        String input = "PLACE 1,2,EAST\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        robotSimulator.readInput(in);
     }
 
 }
