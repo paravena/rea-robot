@@ -1,5 +1,6 @@
 package com.rea.robot.bdd.steps;
 
+import com.rea.robot.RobotCommand;
 import com.rea.robot.RobotSimulator;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -17,11 +18,11 @@ public class RobotSimulatorSteps {
 
     @When("^I place the Robot in position (\\d), (\\d) with (NORTH|SOUTH|EAST|WEST) orientation$")
     public void placeRobotInGivenPosition(int x, int y, String orientation) {
-        throw new PendingException();
+        robotSimulator.processCommand(new RobotCommand("PLACE", x, y, orientation));
     }
 
     @Then("^I expect to see the Robot initialized in previous position$")
     public void verifyPosition() {
-
+        throw new PendingException();
     }
 }
