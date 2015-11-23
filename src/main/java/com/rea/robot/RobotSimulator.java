@@ -24,19 +24,19 @@ public class RobotSimulator {
 
     public void processCommand(RobotCommand robotCommand) {
 
-        if ("PLACE".equals(robotCommand.getName())) {
+        if (CommandName.PLACE.equals(robotCommand.getName())) {
             robot.setPositionX(robotCommand.getPositionX());
             robot.setPositionY(robotCommand.getPositionY());
             robot.setOrientation(robotCommand.getOrientation());
         } else if (isRobotInitialized()) {
-            if ("MOVE".equals(robotCommand.getName())) {
+            if (CommandName.MOVE.equals(robotCommand.getName())) {
                 robot.move();
-            } else if ("LEFT".equals(robotCommand.getName())) {
-                robot.changeOrientation(Movement.LEFT);
-            } else if ("RIGHT".equals(robotCommand.getName())) {
-                robot.changeOrientation(Movement.RIGHT);
-            } else if ("REPORT".equals(robotCommand.getName())) {
-
+            } else if (CommandName.LEFT.equals(robotCommand.getName())) {
+                robot.changeOrientation(CommandName.LEFT);
+            } else if (CommandName.RIGHT.equals(robotCommand.getName())) {
+                robot.changeOrientation(CommandName.RIGHT);
+            } else if (CommandName.REPORT.equals(robotCommand.getName())) {
+                robot.report(System.out);
             }
         }
     }

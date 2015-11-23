@@ -1,6 +1,11 @@
 package com.rea.robot;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 public class Robot {
+    public static Integer X_LIMIT = 5;
+    public static Integer Y_LIMIT = 5;
     private Integer positionX;
     private Integer positionY;
     private Orientation orientation;
@@ -32,21 +37,62 @@ public class Robot {
     public void move() {
         switch (orientation) {
             case NORTH:
-                positionY++;
+                if (positionY < Y_LIMIT) {
+                    positionY++;
+                }
                 break;
             case SOUTH:
-                positionY--;
+                if (positionY > 0) {
+                    positionY--;
+                }
                 break;
             case WEST:
-                positionX--;
+                if (positionX > 0) {
+                    positionX--;
+                }
                 break;
             case EAST:
-                positionX++;
+                if (positionX < X_LIMIT) {
+                    positionX++;
+                }
                 break;
         }
     }
 
-    public void changeOrientation(Movement movement) {
+    public void changeOrientation(CommandName movement) {
+        switch (orientation) {
+            case NORTH:
+                if (CommandName.LEFT.equals(movement)) {
+                    orientation = Orientation.WEST;
+                } else {
+                    orientation = Orientation.EAST;
+                }
+                break;
+            case SOUTH:
+                if (CommandName.LEFT.equals(movement)) {
+                    orientation = Orientation.EAST;
+                } else {
+                    orientation = Orientation.WEST;
+                }
+                break;
+            case WEST:
+                if (CommandName.LEFT.equals(movement)) {
+                    orientation = Orientation.SOUTH;
+                } else {
+                    orientation = Orientation.NORTH;
+                }
+                break;
+            case EAST:
+                if (CommandName.LEFT.equals(movement)) {
+                    orientation = Orientation.NORTH;
+                } else {
+                    orientation = Orientation.SOUTH;
+                }
+                break;
+        }
+    }
 
+    public void report(OutputStream out) {
+        new PrintStream(out).println(positionX + "," + positionY + "," + orientation);
     }
 }
