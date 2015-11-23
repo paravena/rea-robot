@@ -1,31 +1,52 @@
 package com.rea.robot;
 
 public class Robot {
-    private int positionX;
-    private int positionY;
-    private String orientation;
+    private Integer positionX;
+    private Integer positionY;
+    private Orientation orientation;
 
-    public int getPositionX() {
+    public Integer getPositionX() {
         return positionX;
     }
 
-    public void setPositionX(int positionX) {
+    public void setPositionX(Integer positionX) {
         this.positionX = positionX;
     }
 
-    public int getPositionY() {
+    public Integer getPositionY() {
         return positionY;
     }
 
-    public void setPositionY(int positionY) {
+    public void setPositionY(Integer positionY) {
         this.positionY = positionY;
     }
 
-    public String getOrientation() {
+    public Orientation getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(String orientation) {
+    public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
+    }
+
+    public void move() {
+        switch (orientation) {
+            case NORTH:
+                positionY++;
+                break;
+            case SOUTH:
+                positionY--;
+                break;
+            case WEST:
+                positionX--;
+                break;
+            case EAST:
+                positionX++;
+                break;
+        }
+    }
+
+    public void changeOrientation(Movement movement) {
+
     }
 }

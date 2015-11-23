@@ -1,61 +1,59 @@
 package com.rea.robot;
 
 public class RobotCommand {
-    private String name;
-    private int positionX;
-    private int positionY;
-    private String orientation;
+    private CommandName name;
+    private Integer positionX;
+    private Integer positionY;
+    private Orientation orientation;
 
     public RobotCommand() {
     }
 
-    public RobotCommand(String name) {
+    public RobotCommand(CommandName name) {
         this(name, 0, 0, null);
     }
 
-    public RobotCommand(String name, int positionX, int positionY, String orientation) {
+    public RobotCommand(CommandName name, Integer positionX, Integer positionY, Orientation orientation) {
         this.name = name;
         this.positionX = positionX;
         this.positionY = positionY;
         this.orientation = orientation;
     }
 
-    public String getName() {
+    public CommandName getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(CommandName name) {
         this.name = name;
     }
 
-    public int getPositionX() {
+    public Integer getPositionX() {
         return positionX;
     }
 
-    public void setPositionX(int positionX) {
+    public void setPositionX(Integer positionX) {
         this.positionX = positionX;
     }
 
-    public int getPositionY() {
+    public Integer getPositionY() {
         return positionY;
     }
 
-    public void setPositionY(int positionY) {
+    public void setPositionY(Integer positionY) {
         this.positionY = positionY;
     }
 
-    public String getOrientation() {
+    public Orientation getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(String orientation) {
+    public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
 
     @Override
     public String toString() {
-        return "RobotCommand{" +
-                "name='" + name + '\'' +
-                '}';
+        return name.toString();
     }
 }
