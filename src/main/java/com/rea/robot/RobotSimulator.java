@@ -1,17 +1,18 @@
 package com.rea.robot;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RobotSimulator {
-    private Robot robot;
-    private RobotCommandValidator robotCommandValidator;
+    protected Robot robot;
+    protected RobotCommandValidator robotCommandValidator;
+    protected OutputStream out;
 
-    public RobotSimulator() {
+    public RobotSimulator(OutputStream out) {
         robot = new Robot();
         robotCommandValidator = RobotCommandValidator.getInstance();
+        this.out = out;
     }
 
     public void readInput(InputStream in) {
@@ -19,11 +20,13 @@ public class RobotSimulator {
         while (scan.hasNext()) {
             String line = scan.nextLine();
             RobotCommand command = robotCommandValidator.validateCommand(line);
+            if (command != null) {
+                processCommand(command);
+            }
         }
     }
 
     public void processCommand(RobotCommand robotCommand) {
-
         if (CommandName.PLACE.equals(robotCommand.getName())) {
             robot.setPositionX(robotCommand.getPositionX());
             robot.setPositionY(robotCommand.getPositionY());
@@ -36,7 +39,7 @@ public class RobotSimulator {
             } else if (CommandName.RIGHT.equals(robotCommand.getName())) {
                 robot.changeOrientation(CommandName.RIGHT);
             } else if (CommandName.REPORT.equals(robotCommand.getName())) {
-                robot.report(System.out);
+                robot.report(out);
             }
         }
     }

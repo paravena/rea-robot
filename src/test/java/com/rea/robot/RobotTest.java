@@ -3,7 +3,11 @@ package com.rea.robot;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 public class RobotTest {
     private Robot robot;
@@ -50,5 +54,15 @@ public class RobotTest {
         assertEquals(Orientation.WEST, robot.getOrientation());
         robot.changeOrientation(CommandName.RIGHT);
         assertEquals(Orientation.NORTH, robot.getOrientation());
+    }
+
+    @Test
+    public void testReport() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        robot.report(baos);
+        assertTrue(baos.toString().contains("0,0,NORTH"));
+        robot.move();
+        robot.report(baos);
+        assertTrue(baos.toString().contains("0,1,NORTH"));
     }
 }

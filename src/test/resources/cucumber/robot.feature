@@ -4,5 +4,36 @@ Feature: Robot Simulator
 
   Scenario: Place command
     Given I have a Robot
-    When I place the Robot in position 0, 0 with NORTH orientation
-    Then I expect to see the Robot initialized in previous position
+    When I enter following commands:
+      | PLACE 1, 1, SOUTH  |
+      | MOVE               |
+      | RIGHT              |
+      | MOVE               |
+      | REPORT             |
+    Then I expect to see the Robot in position 0,0, WEST
+
+  Scenario: Moving out of limits
+    Given I have a Robot
+    When I enter following commands:
+      | PLACE 4, 4, NORTH  |
+      | MOVE               |
+      | MOVE               |
+      | REPORT             |
+    Then I expect to see the Robot in position 4,5, NORTH
+
+  Scenario: Commands are ignored if robot is not placed first
+    Given I have a Robot
+    When I enter following commands:
+      | MOVE               |
+      | MOVE               |
+      | REPORT             |
+    Then I expect to see an empty report
+
+  Scenario: Wrong place command is ignored
+    Given I have a Robot
+    When I enter following commands:
+      | PLACE -4, -4, NORTH  |
+      | MOVE               |
+      | MOVE               |
+      | REPORT             |
+    Then I expect to see an empty report

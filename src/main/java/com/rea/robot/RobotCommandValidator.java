@@ -17,19 +17,25 @@ public class RobotCommandValidator {
     }
 
     public RobotCommand validateCommand(String line) {
-        String pattern = "^(PLACE|MOVE|RIGHT|LEFT|REPORT)\\s+?(\\d)\\s*?,\\s*?(\\d)\\s*?,\\s*?(NORTH|SOUTH|WEST|EAST)$";
-        Pattern regex = Pattern.compile(pattern);
+        String pattern = "^(PLACE|MOVE|RIGHT|LEFT|REPORT)(\\s+?(\\d)\\s*?,\\s*?(\\d)\\s*?,\\s*?(NORTH|SOUTH|WEST|EAST))?$";
+        Pattern regex = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = regex.matcher(line);
 
         RobotCommand robotCommand = null;
         if (matcher.find()) {
             robotCommand = new RobotCommand();
-            String commandName = matcher.group(1);
+            String commandName = matcher.group(1).toUpperCase();
             robotCommand.setName(CommandName.valueOf(commandName));
             if ("PLACE".equals(commandName)) {
-                robotCommand.setPositionX(Integer.valueOf(matcher.group(2)));
-                robotCommand.setPositionY(Integer.valueOf(matcher.group(3)));
-                robotCommand.setOrientation(Orientation.valueOf(matcher.group(4)));
+                Integer positionX = Integer.valueOf(matcher.group(3));
+                Integer positionY = Integer.valueOf(matcher.group(4));
+                if ((positionX < 0 || positionX > Robot.X_LIMIT)
+                        || (positionY < 0 || positionY > Robot.Y_LIMIT)) {
+                    return null;
+                }
+                robotCommand.setPositionX(positionX);
+                robotCommand.setPositionY(positionY);
+                robotCommand.setOrientation(Orientation.valueOf(matcher.group(5).toUpperCase()));
             }
         }
         return robotCommand;
